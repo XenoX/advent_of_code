@@ -1,0 +1,19 @@
+{
+    "name": "xenox/adventofcode",
+    "description": "Advent of code solutions",
+    "type": "project",
+    "require": {
+        "symfony/error-handler": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "XenoX",
+            "email": "xenox1337@gmail.com"
+        }
+    ]
+}
