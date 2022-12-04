@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename='../../data/2022/1'
+filepath='../../data/2022/1'
 
 calories=0
 while read -r line; do
@@ -10,7 +10,7 @@ while read -r line; do
         totals[${#totals[@]}]=$calories
         calories=0
     fi
-done < $filename
+done < $filepath
 
 sorted_totals=($(tr ' ' '\n' <<< "${totals[@]}" | sort -n))
 
