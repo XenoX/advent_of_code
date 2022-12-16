@@ -17,7 +17,7 @@ isOverlap () {
     return 1
 }
 
-filepath='../../data/2022/4'
+filepath=${1:-'./data'}
 declare -i total
 IFS=','
 

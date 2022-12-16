@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filepath='../../data/2022/1'
+filepath=${1:-'./data'}
 
 calories=0
 most=0

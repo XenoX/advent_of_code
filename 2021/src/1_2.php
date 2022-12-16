@@ -8,7 +8,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 Debug::enable();
 
-$numbers = file_get_contents(__DIR__ . '/../../data/2021/1.txt');
+$numbers = file_get_contents(__DIR__ . '/../data/2021/1.txt');
 $numbers = explode("\n", $numbers);
 $previousSum = null;
 $numberOfIncrements = 0;

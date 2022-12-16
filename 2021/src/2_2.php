@@ -8,7 +8,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 Debug::enable();
 
-$input = explode("\n", file_get_contents(__DIR__ . '/../../data/2021/2.txt'));
+$input = explode("\n", file_get_contents(__DIR__ . '/../data/2021/2.txt'));
 $forward = 0;
 $depth = 0;
 $aim = 0;

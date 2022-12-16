@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filepath='../../data/2022/2'
+filepath=${1:-'./data'}
 
 declare -A opponentLetters
 declare -A hitForLose

@@ -17,7 +17,7 @@ class LifeSupportRating
 
     public function main(): int
     {
-        $numbers = explode("\n", file_get_contents(__DIR__ . '/../../data/2021/3.txt'));
+        $numbers = explode("\n", file_get_contents(__DIR__ . '/../data/2021/3.txt'));
 
         $oxygenNumber = $this->getNumbersForBitCriteria($numbers, 0, self::BIT_CRITERIA_OXYGEN)[0];
         $co2Number = $this->getNumbersForBitCriteria($numbers, 0, self::BIT_CRITERIA_CO2)[0];

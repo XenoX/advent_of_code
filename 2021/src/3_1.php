@@ -8,7 +8,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 Debug::enable();
 
-$input = explode("\n", file_get_contents(__DIR__ . '/../../data/2021/3.txt'));
+$input = explode("\n", file_get_contents(__DIR__ . '/../data/2021/3.txt'));
 $totalEntries = count($input);
 $totalByColumn = [];
 

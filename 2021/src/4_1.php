@@ -22,7 +22,7 @@ class GiantSquid
 
     public function main(): int
     {
-        $input = explode("\n", file_get_contents(__DIR__ . '/../../data/2021/4.txt'));
+        $input = explode("\n", file_get_contents(__DIR__ . '/../data/2021/4.txt'));
         $draws = explode(',', $input[0]);
         unset($input[0], $input[1]);
 

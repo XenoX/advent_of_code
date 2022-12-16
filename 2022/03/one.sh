@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filepath='../../data/2022/3'
+filepath=${1:-'./data'}
 
 declare -A letters
 declare -i total
