@@ -1,39 +1,15 @@
 #!/bin/bash
 
-isInRange () {
-    local IFS='-'
-    read -ra splittedRangeOne <<< $1
-    read -ra splittedRangeTwo <<< $2
-
-    local fsStart=${splittedRangeOne[0]}
-    local fsStop=${splittedRangeOne[1]}
-    local ssStart=${splittedRangeTwo[0]}
-    local ssStop=${splittedRangeTwo[1]}
-
-    if [[ $fsStart -le $ssStart && $fsStop -ge $ssStop ]]; then
-        return 1
-    fi
-
-    if [[ $fsStart -ge $ssStart && $fsStop -le $ssStop ]]; then
-        return 1
-    fi
-
-    return 0
-}
-
+declare -i total=0
 filepath=${1:-'./data'}
-declare -i total
-IFS=','
 
-while read -r line; do
-    read -ra splittedSection <<< $line
-    firstSection=${splittedSection[0]}
-    secondSection=${splittedSection[1]}
+while read line; do
+    read -r set1 set2 <<< $(echo $line | tr ',' ' ')
+    read -r f1 f2 <<< $(echo $set1 | tr '-' ' ')
+    read -r s1 s2 <<< $(echo $set2 | tr '-' ' ')
 
-    result=$(isInRange $firstSection $secondSection)
-    if [ $? -eq 1 ]; then
-        total+=1
-    fi
+    if [[ $f1 -le $s1 ]] && [[ $f2 -ge $s2 ]]; then (( total++ ));
+    elif [[ $s1 -le $f1 ]] && [[ $s2 -ge $f2 ]]; then (( total++ )); fi   
 done < $filepath
 
 echo $total

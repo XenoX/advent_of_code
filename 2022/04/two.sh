@@ -1,35 +1,17 @@
 #!/bin/bash
 
-isOverlap () {
-    local IFS='-'
-    read -ra splittedRangeOne <<< $1
-    read -ra splittedRangeTwo <<< $2
-
-    local fsStart=${splittedRangeOne[0]}
-    local fsStop=${splittedRangeOne[1]}
-    local ssStart=${splittedRangeTwo[0]}
-    local ssStop=${splittedRangeTwo[1]}
-
-    if [[ $fsStop -lt $ssStart || $fsStart -gt $ssStop ]]; then
-        return 0
-    fi
-
-    return 1
-}
-
+declare -i not_overlaps=0 overlaps=0
 filepath=${1:-'./data'}
-declare -i total
-IFS=','
 
-while read -r line; do
-    read -ra splittedSection <<< $line
-    firstSection=${splittedSection[0]}
-    secondSection=${splittedSection[1]}
+while read line; do
+    read -r set1 set2 <<< $(echo $line | tr ',' ' ')
+    read -r f1 f2 <<< $(echo $set1 | tr '-' ' ')
+    read -r s1 s2 <<< $(echo $set2 | tr '-' ' ')
 
-    result=$(isOverlap $firstSection $secondSection)
-    if [ $? -eq 1 ]; then
-        total+=1
-    fi
+    if [[ $f1 -gt $s2 ]]; then (( not_overlaps++ )); fi
+    if [[ $s1 -gt $f2 ]]; then (( not_overlaps++ )); fi   
+
+    (( overlaps++ ))
 done < $filepath
 
-echo $total
+echo $(( overlaps - not_overlaps ))

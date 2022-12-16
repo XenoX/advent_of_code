@@ -14,14 +14,12 @@ while read -r line; do
     currentGroup[${#currentGroup[@]}]=$line
 
     if [ ${#currentGroup[@]} -eq 3 ]; then
-        i=0
-        while [ $i -lt ${#currentGroup[0]} ]; do
+        for i in $(seq 0 ${#currentGroup[0]}); do
             currentChar=${currentGroup[0]:$i:1}
             if [[ ${currentGroup[1]} == *$currentChar* && ${currentGroup[2]} == *$currentChar* ]]; then
                 letter=$currentChar
                 break
             fi
-            ((i++))
         done
 
         currentGroup=()

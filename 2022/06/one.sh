@@ -1,24 +1,15 @@
 #!/bin/bash
 
 filepath=${1:-'./data'}
-declare -A sequence
 declare -i sequenceLength=4
 
 while read -r line; do
-    i=0
-    while [ $i -lt ${#line[0]} ]; do
-        sequence=${line:$i:$sequenceLength}
+    for i in $(seq 0 ${#line[0]}); do
+        count=$(echo ${line:$i:$sequenceLength} | fold -w1 | sort | uniq | wc -l)
 
-        if [[
-            $sequence =~ ${sequence:0:1}.*${sequence:0:1} || 
-            $sequence =~ ${sequence:1:1}.*${sequence:1:1} ||
-            $sequence =~ ${sequence:2:1}.*${sequence:2:1}
-        ]]; then
-            ((i++))
-            continue
+        if [[ $count -eq $sequenceLength ]]; then
+            echo $(( i + $sequenceLength ))
+            break
         fi
-
-        echo $((i+$sequenceLength))
-        break
     done
 done < $filepath

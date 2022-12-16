@@ -15,14 +15,12 @@ while read -r line; do
     compartmentOne=${line:0:$compartmentLength}
     compartmentTwo=${line:(-$compartmentLength)}
 
-    i=0
-    while [ $i -lt $compartmentLength ]; do
+    for i in $(seq 0 $compartmentLength); do
         currentChar=${compartmentOne:$i:1}
         if [[ $compartmentTwo == *$currentChar* ]]; then
             letter=$currentChar
             break
         fi
-        ((i++))
     done
 
     total+=${letters[$letter]}

@@ -2,9 +2,7 @@
 
 filepath=${1:-'./data'}
 
-declare -A opponentLetters
-declare -A hitForLose
-declare -A hitForWin
+declare -A opponentLetters hitForLose hitForWin
 declare -i totalPoint
 
 opponentLetters=([A]=1 [B]=2 [C]=3)
