@@ -1,32 +1,29 @@
 #!/bin/bash
 
 filepath=${1:-'./data'}
-declare -i separatorLine=0 currentLine=0
 
-setSeparatorLine () {
-    while read -r line; do
-        if [[ -z $line ]];then break; fi
-        ((separatorLine++))
-    done < $filepath
-}
+declare -A stacks=()
 
-setSeparatorLine
+stacks[1]="SZPDLBFC"
+stacks[2]="NVGPHWB"
+stacks[3]="FWBJG"
+stacks[4]="GJNFLWCS"
+stacks[5]="WJLTPMSH"
+stacks[6]="BCWGFS"
+stacks[7]="HTPMQBW"
+stacks[8]="FSWT"
+stacks[9]="NCR"
 
-while read -r line; do
-    if [[ $currentLine -lt $separatorLine ]];then
-        # Stocks
-        IFS=' ' read -ra crates <<< $line
-        echo ${crates[1]}
-        break 2
-        # for i in "${crates[@]}"; do
-        #     echo $i
-        # done
-    fi
-    if [[ $currentLine -gt $separatorLine ]];then
-        # Actions
-        echo $line
-    fi
-    ((currentLine++))
+while read line; do
+    read count from to <<< ${line//[^0-9]/ }
+    list=$(echo "${stacks[$from]: -$count}" | rev)
+
+    stacks[$to]=${stacks[$to]}$list
+    stacks[$from]=${stacks[$from]::-$count}
 done < $filepath
 
-echo $currentLine
+for i in {1..9}; do
+    echo -ne "${stacks[$i]: -1}"
+done
+
+echo
