@@ -1,18 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-filepath=${1:-'./data'}
+LEFT=$(awk '{print $1}' < ./data | sort )
+RIGHT=$(awk '{print $2}' < ./data | sort )
+# echo "$LEFT"
+# echo "$RIGHT"
 
-declare -i total=0
+LINES=$(paste -d '-' <(echo "${RIGHT}") <(echo "${LEFT}") | bc | sed 's/-//')
+# echo "$LINES"
 
-awk '{print $1}' "$filepath" | sort -n > column_one
-awk '{print $2}' "$filepath" | sort -n > column_two
-
-paste column_one column_two > sorted && rm column_one && rm column_two
-
-while read -r line; do
-    total+=$(echo "$line" | awk '{print $1 - $2}' | tr -d '-')
-done < './sorted'
-
-rm sorted
-
-echo $total
+TOTAL=$(paste -sd '+' <(echo "$LINES") | bc) 
+echo "$TOTAL"
